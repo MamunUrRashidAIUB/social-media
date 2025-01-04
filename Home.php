@@ -45,42 +45,25 @@ CloseCon($conn);
 
         <!-- Posts Section -->
         <div class="posts-container">
-            <!-- Image Post -->
-            <div class="post">
-                <h3>Lione Messi</h3>
-                <img src="./assets/images/AA1qzbvd.jpeg" alt="Post Image">
-                <p>Messi is the GOAT</p>
-                <div class="post-actions">
-                    <button>Like</button>
-
-                    <button>Comment</button>
-                </div>
-            </div>
-
-            <!-- Text Post -->
-            <div class="post">
-                <h3>Lonel Messi</h3>
-                <p>An Argentine international, Messi is the national team's all-time leading goalscorer and most-capped player. His style of play as a diminutive, left-footed dribbler drew career-long comparisons with compatriot Diego Maradona, who described Messi as his successor.
-                    An Argentine international, Messi is the national team's all-time leading goalscorer and most-capped player. His style of play as a diminutive, left-footed dribbler drew career-long comparisons with compatriot Diego Maradona, who described Messi as his successor.
-                </p>
-                <div class="post-actions">
-                    <button>Like</button>
-
-                    <button>Comment</button>
-                </div>
-            </div>
-
-            <!-- Another Image Post -->
-            <div class="post">
-                <h3>Lionel Messi</h3>
-                <img src="./assets/images/leo.jpg" alt="Post Image">
-                <p>Exploring the mountains!</p>
-                <div class="post-actions">
-                    <button>Like</button>
-
-                    <button>Comment</button>
-                </div>
-            </div>
+            <?php
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<div class="post">';
+                    echo '<h3>' . $row['username'] . '</h3>';
+                    if ($row['image_url']) {
+                        echo '<img src="' . $row['image_url'] . '" alt="Post Image">';
+                    }
+                    echo '<p>' . $row['content'] . '</p>';
+                    echo '<div class="post-actions">';
+                    echo '<button>Like</button>';
+                    echo '<button>Comment</button>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            } else {
+                echo '<p>No posts found.</p>';
+            }
+            ?>
         </div>
         <!-- Right Sidebar -->
 
