@@ -138,49 +138,64 @@
   height: auto; /* Maintains the aspect ratio of the image */
   border-radius: 8px; /* Optional: Adds rounded corners to the image */
 }
+.right-sidebar {
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for the box */
+  border: 2px solid #1fa387; /* Cute border color */
+  border-radius: 10px; /* Rounded corners for the box */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a raised effect */
+  max-width: 300px; /* Adjust as needed */
+  margin: 0 auto; /* Center the box horizontally */
+}
+
 .right-sidebar div {
   display: flex; /* Use flexbox to align items in a row */
   flex-direction: row; /* Align items horizontally */
   align-items: center; /* Vertically center items */
   gap: 10px; /* Add spacing between items */
   padding: 10px;
-  border-bottom: 1px solid #080808; /* Optional: Add a border between friend requests */
+  border-bottom: 1px solid #1fa387; /* Match the box border color */
+  min-height: 70px; /* Ensure consistent box height */
+  box-sizing: border-box; /* Include padding in height calculations */
 }
 
 .right-sidebar img {
   width: 50px; /* Adjust image size as needed */
   height: 50px;
   border-radius: 50%; /* Makes the image circular */
+  border: 2px solid #1fa387; /* Cute border around the image */
 }
 
 .right-sidebar p {
   margin: 0;
-  color: #080808;
+  color: #333; /* Slightly darker text for better contrast */
   font-size: 14px;
   flex-grow: 1; /* Allow the text to take up remaining space */
+  text-decoration: none; /* Remove underline if applied */
 }
 
-
+.right-sidebar button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none; /* Remove underline from buttons if applied */
+}
 
 .right-sidebar button:hover {
   background-color: #0a0a0a;
   color: #1fa387;
 }
+
 .accept {
-  padding: 5px 10px;
   background-color: #13cc51;
-  color: #080808;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
+  color: #ffffff; /* White text for better visibility */
+  text-decoration: none; /* Ensure no underline */
 }
+
 .reject {
-  padding: 5px 10px;
   background-color: #cc1313;
-  color: #080808;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
+  color: #ffffff; /* White text for better visibility */
+  text-decoration: none; /* Ensure no underline */
 }

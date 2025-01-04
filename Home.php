@@ -32,7 +32,7 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
-            <img src="./assets/images/geometric-logo-design.png" alt="Logo">
+            <img src="./assets/images/2.png" alt="Logo">
         </div>
         <div class="search-bar">
             <input type="text" placeholder="Search...">
@@ -77,9 +77,14 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
                 <?php
                 if ($result_friends->num_rows > 0) {
                     while ($row = $result_friends->fetch_assoc()) {
-                        echo '<div class="post">';
-                        echo '<h3>' . $row['friend_name'] . '</h3>'; // Adjust based on your table structure
-                        echo '<p>' . $row['friend_info'] . '</p>'; // Adjust based on your table structure
+                        echo '<div class="right-sidebar">'; // Apply the right-sidebar class
+                        echo '<div>'; // Inner div for flex layout
+                        if ($row['image_url']) {
+                            echo '<img src="' . $row['image_url'] . '" alt="Friend Image">';
+                        }
+                        echo '<p>' . $row['friend_name'] . '</p>';
+
+                        echo '</div>';
                         echo '</div>';
                     }
                 } else {
@@ -93,7 +98,7 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
         <div class="right-sidebar">
             <button class="friends-button"> Friend requests</button>
             <div>
-                <img src="./assets/images/AA1qzbvd.jpeg" alt="">
+                <img src="./assets/images/1.jpeg" alt="">
                 <p>John Doe</p>
                 <button class="accept">Accept</button>
                 <button class="reject">Reject</button>
