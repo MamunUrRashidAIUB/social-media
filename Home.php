@@ -4,20 +4,14 @@ require_once 'connection/db_connectionm.php';
 // Open database connection
 $conn = OpenCon();
 
-// Check if the "Friends" button was clicked
-$showFriends = isset($_GET['show']) && $_GET['show'] === 'friends';
-
-// Fetch posts or friends based on the condition
-if ($showFriends) {
-    $sql = "SELECT * FROM friends"; // Assuming you have a friends table
-} else {
-    $sql = "SELECT * FROM posts ORDER BY created_at DESC";
-}
+// Fetch posts from the database
+$sql = "SELECT * FROM posts ORDER BY created_at DESC";
 $result = $conn->query($sql);
 
 // Close database connection
 CloseCon($conn);
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -43,47 +37,36 @@ CloseCon($conn);
     <div class="main-container">
         <!-- Left Sidebar -->
         <div class="left-sidebar">
-            <form method="GET" action="">
-                <input type="hidden" name="show" value="friends">
-                <button type="submit" class="friends-button">Friends</button>
-            </form>
-            <br>
-            <form method="GET" action="">
-                <input type="hidden" name="show" value="posts">
-                <button type="submit" class="friends-button">Feeds</button>
-            </form>
-            <br>
-            <button class="friends-button">My Profile</button>
+            <button class="friends-button">Friends</button><br>
+            <button class="friends-button">My Profile</button> <br>
+
+            <button class="friends-button">feeds</button>
         </div>
 
-        <!-- Posts or Friends Section -->
+        <!-- Posts Section -->
         <div class="posts-container">
             <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo '<div class="post">';
-                    if ($showFriends) {
-                        echo '<h3>' . $row['friend_name'] . '</h3>';
-                    } else {
-                        echo '<h3>' . $row['username'] . '</h3>';
-                        if ($row['image_url']) {
-                            echo '<img src="' . $row['image_url'] . '" alt="Post Image">';
-                        }
-                        echo '<p>' . $row['content'] . '</p>';
-                        echo '<div class="post-actions">';
-                        echo '<button>Like</button>';
-                        echo '<button>Comment</button>';
-                        echo '</div>';
+                    echo '<h3>' . $row['username'] . '</h3>';
+                    if ($row['image_url']) {
+                        echo '<img src="' . $row['image_url'] . '" alt="Post Image">';
                     }
+                    echo '<p>' . $row['content'] . '</p>';
+                    echo '<div class="post-actions">';
+                    echo '<button>Like</button>';
+                    echo '<button>Comment</button>';
+                    echo '</div>';
                     echo '</div>';
                 }
             } else {
-                echo '<p>No ' . ($showFriends ? 'friends' : 'posts') . ' found.</p>';
+                echo '<p>No posts found.</p>';
             }
             ?>
         </div>
-
         <!-- Right Sidebar -->
+
         <div class="right-sidebar">
             <button class="friends-button"> Friend requests</button>
             <div>
