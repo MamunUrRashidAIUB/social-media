@@ -72,8 +72,8 @@
             <div>
                 <img src="./assets/images/AA1qzbvd.jpeg" alt="">
                 <p>John Doe</p>
-                <button>Accept</button>
-                <button>Reject</button>
+                <button class="accept">Accept</button>
+                <button class="reject">Reject</button>
             </div>
         </div>
     </div>

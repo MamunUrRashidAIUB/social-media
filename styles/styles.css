@@ -160,17 +160,27 @@
   flex-grow: 1; /* Allow the text to take up remaining space */
 }
 
-.right-sidebar button {
+
+
+.right-sidebar button:hover {
+  background-color: #0a0a0a;
+  color: #1fa387;
+}
+.accept {
   padding: 5px 10px;
-  background-color: #1fa387;
+  background-color: #13cc51;
   color: #080808;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
 }
-
-.right-sidebar button:hover {
-  background-color: #0a0a0a;
-  color: #1fa387;
+.reject {
+  padding: 5px 10px;
+  background-color: #cc1313;
+  color: #080808;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
 }
