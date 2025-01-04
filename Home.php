@@ -22,8 +22,10 @@
     <div class="main-container">
         <!-- Left Sidebar -->
         <div class="left-sidebar">
-            <button class="friends-button">Friends</button><br> <br>
-            <button class="friends-button">My Profile</button>
+            <button class="friends-button">Friends</button><br>
+            <button class="friends-button">My Profile</button> <br>
+
+            <button class="friends-button">feeds</button>
         </div>
 
         <!-- Posts Section -->
@@ -61,6 +63,17 @@
 
                     <button>Comment</button>
                 </div>
+            </div>
+        </div>
+        <!-- Right Sidebar -->
+
+        <div class="right-sidebar">
+            <button class="friends-button"> Friend requests</button>
+            <div>
+                <img src="./assets/images/AA1qzbvd.jpeg" alt="">
+                <p>John Doe</p>
+                <button>Accept</button>
+                <button>Reject</button>
             </div>
         </div>
     </div>

@@ -54,7 +54,7 @@
   font-size: 16px;
   font-weight: bold;
   transition: background-color 0.3s ease;
- margin-top: 10px;
+  margin-top: 10px;
 }
 
 .friends-button:hover {
@@ -137,4 +137,40 @@
   max-width: 100%; /* Ensures the image does not exceed the width of the post container */
   height: auto; /* Maintains the aspect ratio of the image */
   border-radius: 8px; /* Optional: Adds rounded corners to the image */
+}
+.right-sidebar div {
+  display: flex; /* Use flexbox to align items in a row */
+  flex-direction: row; /* Align items horizontally */
+  align-items: center; /* Vertically center items */
+  gap: 10px; /* Add spacing between items */
+  padding: 10px;
+  border-bottom: 1px solid #080808; /* Optional: Add a border between friend requests */
+}
+
+.right-sidebar img {
+  width: 50px; /* Adjust image size as needed */
+  height: 50px;
+  border-radius: 50%; /* Makes the image circular */
+}
+
+.right-sidebar p {
+  margin: 0;
+  color: #080808;
+  font-size: 14px;
+  flex-grow: 1; /* Allow the text to take up remaining space */
+}
+
+.right-sidebar button {
+  padding: 5px 10px;
+  background-color: #1fa387;
+  color: #080808;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.right-sidebar button:hover {
+  background-color: #0a0a0a;
+  color: #1fa387;
 }
