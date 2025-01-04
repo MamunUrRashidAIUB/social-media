@@ -17,7 +17,14 @@ function CloseCon($conn)
 {
     $conn->close();
 }
-INSERT INTO posts (username, content, image_url) VALUES 
-('Lione Messi', 'Messi is the GOAT', './assets/images/AA1qzbvd.jpeg'),
-('Lonel Messi', 'An Argentine international, Messi is the national team\'s all-time leading goalscorer and most-capped player.', NULL),
-('Lionel Messi', 'Exploring the mountains!', './assets/images/leo.jpg');
+// CREATE TABLE posts (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     username VARCHAR(255) NOT NULL,
+//     content TEXT,
+//     image_url VARCHAR(255),
+//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+// );
+// INSERT INTO posts (username, content, image_url) VALUES 
+// ('Lione Messi', 'Messi is the GOAT', './assets/images/AA1qzbvd.jpeg'),
+// ('Lonel Messi', 'An Argentine international, Messi is the national team\'s all-time leading goalscorer and most-capped player.', NULL),
+// ('Lionel Messi', 'Exploring the mountains!', './assets/images/leo.jpg');
