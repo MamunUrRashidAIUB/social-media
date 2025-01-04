@@ -1,3 +1,18 @@
+<?php
+require_once 'connection/db_connectionm.php';
+
+// Open database connection
+$conn = OpenCon();
+
+// Fetch posts from the database
+$sql = "SELECT * FROM posts ORDER BY created_at DESC";
+$result = $conn->query($sql);
+
+// Close database connection
+CloseCon($conn);
+?>
+
+
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="styles/styles.css">
@@ -45,7 +60,9 @@
             <!-- Text Post -->
             <div class="post">
                 <h3>Lonel Messi</h3>
-                <p>An Argentine international, Messi is the national team's all-time leading goalscorer and most-capped player. His style of play as a diminutive, left-footed dribbler drew career-long comparisons with compatriot Diego Maradona, who described Messi as his successor.</p>
+                <p>An Argentine international, Messi is the national team's all-time leading goalscorer and most-capped player. His style of play as a diminutive, left-footed dribbler drew career-long comparisons with compatriot Diego Maradona, who described Messi as his successor.
+                    An Argentine international, Messi is the national team's all-time leading goalscorer and most-capped player. His style of play as a diminutive, left-footed dribbler drew career-long comparisons with compatriot Diego Maradona, who described Messi as his successor.
+                </p>
                 <div class="post-actions">
                     <button>Like</button>
 
