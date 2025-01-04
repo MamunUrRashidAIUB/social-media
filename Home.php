@@ -4,6 +4,27 @@ require_once 'connection/db_connectionm.php';
 // Open database connection
 $conn = OpenCon();
 
+// Initialize search variables
+$search_results = null;
+$search_query = '';
+
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search_query = trim($_GET['search']);
+    $stmt = $conn->prepare("SELECT * FROM friends WHERE friend_name LIKE ?");
+    $search_param = '%' . $search_query . '%';
+    $stmt->bind_param("s", $search_param);
+    $stmt->execute();
+    $search_results = $stmt->get_result();
+
+    // Debug statement
+    if ($search_results === false) {
+        die("Error executing query: " . $stmt->error);
+    }
+
+    // Debug statement
+    echo "Number of results: " . $search_results->num_rows;
+}
+
 // Fetch posts from the database
 $sql_posts = "SELECT * FROM posts ORDER BY created_at DESC";
 $result_posts = $conn->query($sql_posts);
@@ -20,6 +41,7 @@ $show_friends = isset($_GET['show']) && $_GET['show'] === 'friends';
 $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="styles/styles.css">
@@ -35,17 +57,39 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
             <img src="./assets/images/2.png" alt="Logo">
         </div>
         <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button>Search</button>
+            <form method="GET" action="">
+                <input type="text" name="search" value="<?= htmlspecialchars($search_query); ?>" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
         </div>
     </nav>
     <br>
+
+    <!-- Display Search Results -->
+    <?php if (!empty($search_query)): ?>
+        <div class="search-results">
+            <h3>Search Results for "<?= htmlspecialchars($search_query); ?>"</h3>
+            <?php if ($search_results && $search_results->num_rows > 0): ?>
+                <?php while ($row = $search_results->fetch_assoc()): ?>
+                    <div class="friend-profile">
+                        <?php if (!empty($row['image_url'])): ?>
+                            <img src="<?= $row['image_url']; ?>" alt="Profile Image">
+                        <?php endif; ?>
+                        <p><?= htmlspecialchars($row['friend_name']); ?></p>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No profiles found.</p>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
     <!-- Main Content -->
     <div class="main-container">
         <!-- Left Sidebar -->
         <div class="left-sidebar">
             <a href="?show=friends"><button class="friends-button">Friends</button></a><br>
-            <button class="friends-button">My Profile</button> <br>
+            <button class="friends-button">My Profile</button><br>
             <a href="?show=feeds"><button class="friends-button">Feeds</button></a>
         </div>
 
@@ -77,13 +121,12 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
                 <?php
                 if ($result_friends->num_rows > 0) {
                     while ($row = $result_friends->fetch_assoc()) {
-                        echo '<div class="right-sidebar">'; // Apply the right-sidebar class
-                        echo '<div>'; // Inner div for flex layout
+                        echo '<div class="right-sidebar">';
+                        echo '<div>';
                         if ($row['image_url']) {
                             echo '<img src="' . $row['image_url'] . '" alt="Friend Image">';
                         }
                         echo '<p>' . $row['friend_name'] . '</p>';
-
                         echo '</div>';
                         echo '</div>';
                     }
@@ -96,7 +139,7 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
 
         <!-- Right Sidebar -->
         <div class="right-sidebar">
-            <button class="friends-button"> Friend requests</button>
+            <button class="friends-button">Friend requests</button>
             <div>
                 <img src="./assets/images/1.jpeg" alt="">
                 <p>John Doe</p>
