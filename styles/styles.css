@@ -14,7 +14,7 @@
   padding-left: 600px;
 }
 .logo img {
-  height: 50px; /* Adjust logo size as needed */
+  height: 50px;
 }
 
 .search-bar {
@@ -32,8 +32,8 @@
 
 .search-bar button {
   padding: 8px 16px;
-  background-color: #080808; /* Dark button background */
-  color: #1fa387; /* Teal text color */
+  background-color: #080808;
+  color: #1fa387;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -41,13 +41,13 @@
 }
 
 .search-bar button:hover {
-  background-color: #0a0a0a; /* Slightly lighter dark color on hover */
+  background-color: #0a0a0a;
 }
 
 .friends-button {
   padding: 10px 20px;
-  background-color: #1fa387; /* Teal background */
-  color: #080808; /* Dark text color */
+  background-color: #1fa387;
+  color: #080808;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -58,26 +58,26 @@
 }
 
 .friends-button:hover {
-  background-color: #0a0a0a; /* Darker background on hover */
-  color: #1fa387; /* Teal text color on hover */
+  background-color: #0a0a0a;
+  color: #1fa387;
 }
 
 /* Main Container */
 .main-container {
   display: flex;
   padding: 20px;
-  margin-top: 80px; /* Adjust based on navbar height */
-  margin-left: 20%; /* Adjust based on left sidebar width */
+  margin-top: 80px;
+  margin-left: 20%;
 }
 
 /* Left Sidebar */
 .left-sidebar {
   position: fixed;
-  top: 80px; /* Adjust based on navbar height */
+  top: 80px;
   left: 0;
   width: 20%;
   padding: 10px;
-  background-color: #f9f9f9; /* Optional: Add background color */
+  background-color: #f9f9f9;
   z-index: 999;
 }
 
@@ -89,10 +89,8 @@
   align-items: center;
   gap: 20px;
   padding: 10px;
-  overflow-y: auto; /* Enable vertical scrolling */
-  height: calc(
-    100vh - 100px
-  ); /* Adjust height based on navbar and other elements */
+  overflow-y: auto;
+  height: calc(100vh - 100px);
 }
 .post {
   width: 100%;
@@ -134,44 +132,44 @@
   color: #1fa387;
 }
 .post img {
-  max-width: 100%; /* Ensures the image does not exceed the width of the post container */
-  height: auto; /* Maintains the aspect ratio of the image */
-  border-radius: 8px; /* Optional: Adds rounded corners to the image */
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 .right-sidebar {
   padding: 20px;
-  background-color: #f9f9f9; /* Light background for the box */
-  border: 2px solid #1fa387; /* Cute border color */
-  border-radius: 10px; /* Rounded corners for the box */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a raised effect */
-  max-width: 300px; /* Adjust as needed */
-  margin: 0 auto; /* Center the box horizontally */
+  background-color: #f9f9f9;
+  border: 2px solid #1fa387;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .right-sidebar div {
-  display: flex; /* Use flexbox to align items in a row */
-  flex-direction: row; /* Align items horizontally */
-  align-items: center; /* Vertically center items */
-  gap: 10px; /* Add spacing between items */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
   padding: 10px;
-  border-bottom: 1px solid #1fa387; /* Match the box border color */
-  min-height: 70px; /* Ensure consistent box height */
-  box-sizing: border-box; /* Include padding in height calculations */
+  border-bottom: 1px solid #1fa387;
+  min-height: 70px;
+  box-sizing: border-box;
 }
 
 .right-sidebar img {
-  width: 50px; /* Adjust image size as needed */
+  width: 50px;
   height: 50px;
-  border-radius: 50%; /* Makes the image circular */
-  border: 2px solid #1fa387; /* Cute border around the image */
+  border-radius: 50%;
+  border: 2px solid #1fa387;
 }
 
 .right-sidebar p {
   margin: 0;
-  color: #333; /* Slightly darker text for better contrast */
+  color: #333;
   font-size: 14px;
-  flex-grow: 1; /* Allow the text to take up remaining space */
-  text-decoration: none; /* Remove underline if applied */
+  flex-grow: 1;
+  text-decoration: none;
 }
 
 .right-sidebar button {
@@ -180,7 +178,7 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  text-decoration: none; /* Remove underline from buttons if applied */
+  text-decoration: none;
 }
 
 .right-sidebar button:hover {
@@ -190,12 +188,12 @@
 
 .accept {
   background-color: #13cc51;
-  color: #ffffff; /* White text for better visibility */
-  text-decoration: none; /* Ensure no underline */
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .reject {
   background-color: #cc1313;
-  color: #ffffff; /* White text for better visibility */
-  text-decoration: none; /* Ensure no underline */
+  color: #ffffff;
+  text-decoration: none;
 }
