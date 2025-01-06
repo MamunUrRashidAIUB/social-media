@@ -1,10 +1,10 @@
 <?php
 require_once 'connection/db_connectionm.php';
 
-// Open database connection
+
 $conn = OpenCon();
 
-// Initialize search variables
+
 $search_results = null;
 $search_query = '';
 
@@ -16,12 +16,12 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     $stmt->execute();
     $search_results = $stmt->get_result();
 
-    // Debug statement
+
     if ($search_results === false) {
         die("Error executing query: " . $stmt->error);
     }
 
-    // Debug statement
+
     echo "Number of results: " . $search_results->num_rows;
 }
 
@@ -29,8 +29,8 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 $sql_posts = "SELECT * FROM posts ORDER BY created_at DESC";
 $result_posts = $conn->query($sql_posts);
 
-// Fetch friends from the database (assuming you have a 'friends' table)
-$sql_friends = "SELECT * FROM friends"; // Adjust the query based on your table structure
+// Fetch friends from the database 
+$sql_friends = "SELECT * FROM friends";
 $result_friends = $conn->query($sql_friends);
 
 // Close database connection
