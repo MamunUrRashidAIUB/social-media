@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post']) && $sh
     <?php if ($show_profile && $profile_data): ?>
         <div class="profile-data">
             <h3>Profile Information</h3>
-
+            <img src="<?= htmlspecialchars($profile_data['img']); ?>" alt="Profile Image" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #1fa387;" class="profileimage">
             <p>Name: <?= htmlspecialchars($profile_data['name']); ?></p>
             <p>Age: <?= htmlspecialchars($profile_data['age']); ?></p>
             <p>Current Location: <?= htmlspecialchars($profile_data['current_location']); ?></p>
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post']) && $sh
                     <li><?= htmlspecialchars($school); ?></li>
                 <?php endforeach; ?>
             </ul>
-            <img src="<?= htmlspecialchars($profile_data['img']); ?>" alt="Profile Image" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #1fa387;" class="profileimage">
+
         </div>
 
         <!-- New Post Section -->
