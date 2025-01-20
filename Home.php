@@ -43,6 +43,18 @@ CloseCon($conn);
 $show_friends = isset($_GET['show']) && $_GET['show'] === 'friends';
 $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
 $show_profile = isset($_GET['show']) && $_GET['show'] === 'profile';
+
+// Handle new post submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
+    $post_content = $_POST['post_content'];
+    $image_url = ''; // Handle image upload logic here
+
+    // Insert the new post into the database
+    $stmt = $conn->prepare("INSERT INTO posts (content, image_url) VALUES (?, ?)");
+    $stmt->bind_param("ss", $post_content, $image_url);
+    $stmt->execute();
+    $stmt->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -86,6 +98,16 @@ $show_profile = isset($_GET['show']) && $_GET['show'] === 'profile';
             <img src="<?= htmlspecialchars($profile_data['img']); ?>" alt="Profile Image" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #1fa387;" class="profileimage">
         </div>
     <?php endif; ?>
+
+    <!-- New Post Section -->
+    <div class="new-post">
+        <h3>Create a New Post</h3>
+        <form method="POST" action="">
+            <textarea name="post_content" placeholder="What's on your mind?" required></textarea>
+            <input type="file" name="post_image" accept="image/*">
+            <button type="submit" name="submit_post">Post</button>
+        </form>
+    </div>
 
     <!-- Main Content -->
     <div class="main-container">
