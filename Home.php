@@ -63,7 +63,30 @@ $show_profile = isset($_GET['show']) && $_GET['show'] === 'profile';
 // Handle new post submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post']) && $show_profile) {
     $post_content = $_POST['post_content'];
-    $image_url = ''; // Handle image upload logic here
+    $image_url = ''; // Default to empty if no image is uploaded
+
+    // Check if an image was uploaded
+    if (isset($_FILES['post_image']) && $_FILES['post_image']['error'] === UPLOAD_ERR_OK) {
+        $image_tmp_name = $_FILES['post_image']['tmp_name'];
+        $image_name = basename($_FILES['post_image']['name']);
+        $upload_dir = 'uploads/'; // Directory to store uploaded images
+
+        // Ensure the upload directory exists
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+
+        // Define the path to store the uploaded image
+        $image_path = $upload_dir . $image_name;
+
+        // Move the uploaded image to the directory
+        if (move_uploaded_file($image_tmp_name, $image_path)) {
+            $image_url = $image_path; // Save the image URL in the post
+        } else {
+            // Handle error if image upload fails
+            echo "Failed to upload image.";
+        }
+    }
 
     // Save the new post to the JSON file
     $new_post = [
@@ -73,6 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post']) && $sh
         'created_at' => date('Y-m-d H:i:s'),
     ];
     $posts[] = $new_post;
+
+    // Save posts to JSON file
     file_put_contents($posts_file, json_encode($posts, JSON_PRETTY_PRINT));
 }
 ?>
@@ -121,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post']) && $sh
         <!-- New Post Section -->
         <div class="new-post">
             <h3>Create a New Post</h3>
-            <form method="POST" action="">
+            <form method="POST" action="" enctype="multipart/form-data">
                 <textarea name="post_content" placeholder="What's on your mind?" required></textarea>
                 <input type="file" name="post_image" accept="image/*">
                 <button type="submit" name="submit_post">Post</button>
