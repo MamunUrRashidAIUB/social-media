@@ -12,16 +12,19 @@ if (isset($_GET['show']) && $_GET['show'] === 'profile') {
     $profile_data = json_decode(file_get_contents('data/mydata.json'), true);
 }
 
-if (isset($_GET['search']) && !empty($_GET['search'])) {
+// Validate search input
+if (isset($_GET['search'])) {
     $search_query = trim($_GET['search']);
-    $stmt = $conn->prepare("SELECT * FROM friends WHERE friend_name LIKE ?");
-    $search_param = '%' . $search_query . '%';
-    $stmt->bind_param("s", $search_param);
-    $stmt->execute();
-    $search_results = $stmt->get_result();
+    if (!empty($search_query)) {
+        $stmt = $conn->prepare("SELECT * FROM friends WHERE friend_name LIKE ?");
+        $search_param = '%' . $search_query . '%';
+        $stmt->bind_param("s", $search_param);
+        $stmt->execute();
+        $search_results = $stmt->get_result();
 
-    if ($search_results === false) {
-        die("Error executing query: " . $stmt->error);
+        if ($search_results === false) {
+            die("Error executing query: " . $stmt->error);
+        }
     }
 }
 
