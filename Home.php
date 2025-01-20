@@ -80,7 +80,7 @@ $show_profile = isset($_GET['show']) && $_GET['show'] === 'profile';
                     <li><?= htmlspecialchars($school); ?></li>
                 <?php endforeach; ?>
             </ul>
-            <img src="<?= htmlspecialchars($profile_data['img']); ?>" alt="Profile Image" class="profile-image">
+            <img src="<?= htmlspecialchars($profile_data['img']); ?>" alt="Profile Image" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #1fa387;" class="profileimage">
         </div>
     <?php endif; ?>
 

@@ -197,3 +197,30 @@
   color: #ffffff;
   text-decoration: none;
 }
+
+/* Profile Data Styling */
+.profile-data {
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.profile-data img {
+  margin-top: 10px;
+}
+
+.profile-data h3 {
+  color: #1fa387;
+}
+
+.profile-data ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-data ul li {
+  margin: 5px 0;
+}
