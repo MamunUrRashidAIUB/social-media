@@ -28,8 +28,12 @@ if (isset($_GET['search'])) {
     }
 }
 
+// Load posts from JSON file
+$posts_file = 'data/posts.json';
+$posts = file_exists($posts_file) ? json_decode(file_get_contents($posts_file), true) : [];
+
 // Fetch posts from the database
-$sql_posts = "SELECT * FROM posts ORDER BY created_at DESC";
+$sql_posts = "SELECT * FROM posts ORDER BY created_at DESC"; // Assuming you have a 'posts' table
 $result_posts = $conn->query($sql_posts);
 
 // Fetch friends from the database 
@@ -38,6 +42,18 @@ $result_friends = $conn->query($sql_friends);
 
 // Close database connection
 CloseCon($conn);
+
+// Combine posts from the database and JSON
+if ($result_posts->num_rows > 0) {
+    while ($row = $result_posts->fetch_assoc()) {
+        $posts[] = [
+            'username' => $row['username'],
+            'content' => $row['content'],
+            'image_url' => $row['image_url'],
+            'created_at' => $row['created_at'],
+        ];
+    }
+}
 
 // Determine which content to show based on the button clicked
 $show_friends = isset($_GET['show']) && $_GET['show'] === 'friends';
@@ -49,11 +65,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post']) && $sh
     $post_content = $_POST['post_content'];
     $image_url = ''; // Handle image upload logic here
 
-    // Insert the new post into the database
-    $stmt = $conn->prepare("INSERT INTO posts (content, image_url) VALUES (?, ?)");
-    $stmt->bind_param("ss", $post_content, $image_url);
-    $stmt->execute();
-    $stmt->close();
+    // Save the new post to the JSON file
+    $new_post = [
+        'username' => $profile_data['name'],
+        'content' => $post_content,
+        'image_url' => $image_url,
+        'created_at' => date('Y-m-d H:i:s'),
+    ];
+    $posts[] = $new_post;
+    file_put_contents($posts_file, json_encode($posts, JSON_PRETTY_PRINT));
 }
 ?>
 
@@ -122,14 +142,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post']) && $sh
         <?php if ($show_feeds): ?>
             <div class="posts-container">
                 <?php
-                if ($result_posts->num_rows > 0) {
-                    while ($row = $result_posts->fetch_assoc()) {
+                if (!empty($posts)) {
+                    foreach ($posts as $post) {
                         echo '<div class="post">';
-                        echo '<h3>' . $row['username'] . '</h3>';
-                        if ($row['image_url']) {
-                            echo '<img src="' . $row['image_url'] . '" alt="Post Image">';
+                        echo '<h3>' . htmlspecialchars($post['username']) . '</h3>';
+                        if (!empty($post['image_url'])) {
+                            echo '<img src="' . htmlspecialchars($post['image_url']) . '" alt="Post Image">';
                         }
-                        echo '<p>' . $row['content'] . '</p>';
+                        echo '<p>' . htmlspecialchars($post['content']) . '</p>';
+                        echo '<small>' . htmlspecialchars($post['created_at']) . '</small>';
                         echo '<div class="post-actions">';
                         echo '<button>Like</button>';
                         echo '<button>Comment</button>';
