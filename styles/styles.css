@@ -224,3 +224,54 @@
 .profile-data ul li {
   margin: 5px 0;
 }
+
+/* New Post Section */
+.new-post {
+  margin-top: 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.new-post h3 {
+  color: #1fa387;
+}
+
+.new-post form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.new-post textarea {
+  padding: 10px;
+  border: 1px solid #080808;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.new-post input[type="file"] {
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.new-post button {
+  padding: 10px 20px;
+  background-color: #1fa387;
+  color: #080808;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.new-post button:hover {
+  background-color: #0a0a0a;
+  color: #1fa387;
+}
