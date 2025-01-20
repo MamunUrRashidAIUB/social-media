@@ -45,7 +45,7 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
 $show_profile = isset($_GET['show']) && $_GET['show'] === 'profile';
 
 // Handle new post submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post']) && $show_profile) {
     $post_content = $_POST['post_content'];
     $image_url = ''; // Handle image upload logic here
 
@@ -97,17 +97,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
             </ul>
             <img src="<?= htmlspecialchars($profile_data['img']); ?>" alt="Profile Image" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #1fa387;" class="profileimage">
         </div>
-    <?php endif; ?>
 
-    <!-- New Post Section -->
-    <div class="new-post">
-        <h3>Create a New Post</h3>
-        <form method="POST" action="">
-            <textarea name="post_content" placeholder="What's on your mind?" required></textarea>
-            <input type="file" name="post_image" accept="image/*">
-            <button type="submit" name="submit_post">Post</button>
-        </form>
-    </div>
+        <!-- New Post Section -->
+        <div class="new-post">
+            <h3>Create a New Post</h3>
+            <form method="POST" action="">
+                <textarea name="post_content" placeholder="What's on your mind?" required></textarea>
+                <input type="file" name="post_image" accept="image/*">
+                <button type="submit" name="submit_post">Post</button>
+            </form>
+        </div>
+    <?php endif; ?>
 
     <!-- Main Content -->
     <div class="main-container">
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
             <a href="?show=feeds"><button class="friends-button">Feeds</button></a>
         </div>
 
-        <!-- Posts Section -->
+        <!-- Posts Section (Only for Feeds) -->
         <?php if ($show_feeds): ?>
             <div class="posts-container">
                 <?php
@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_post'])) {
             </div>
         <?php endif; ?>
 
-        <!-- Friends Section -->
+        <!-- Friends Section (Only for Friends) -->
         <?php if ($show_friends): ?>
             <div class="right-sidebar">
                 <?php
