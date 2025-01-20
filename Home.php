@@ -1,12 +1,16 @@
 <?php
 require_once 'connection/db_connectionm.php';
 
-
 $conn = OpenCon();
-
 
 $search_results = null;
 $search_query = '';
+$profile_data = null;
+
+// Check if the user wants to view their profile
+if (isset($_GET['show']) && $_GET['show'] === 'profile') {
+    $profile_data = json_decode(file_get_contents('data/mydata.json'), true);
+}
 
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search_query = trim($_GET['search']);
@@ -16,13 +20,9 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     $stmt->execute();
     $search_results = $stmt->get_result();
 
-
     if ($search_results === false) {
         die("Error executing query: " . $stmt->error);
     }
-
-
-    echo "Number of results: " . $search_results->num_rows;
 }
 
 // Fetch posts from the database
@@ -39,8 +39,8 @@ CloseCon($conn);
 // Determine which content to show based on the button clicked
 $show_friends = isset($_GET['show']) && $_GET['show'] === 'friends';
 $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
+$show_profile = isset($_GET['show']) && $_GET['show'] === 'profile';
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -65,22 +65,20 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
     </nav>
     <br>
 
-    <!-- Display Search Results -->
-    <?php if (!empty($search_query)): ?>
-        <div class="search-results">
-            <h3>Search Results for "<?= htmlspecialchars($search_query); ?>"</h3>
-            <?php if ($search_results && $search_results->num_rows > 0): ?>
-                <?php while ($row = $search_results->fetch_assoc()): ?>
-                    <div class="friend-profile">
-                        <?php if (!empty($row['image_url'])): ?>
-                            <img src="<?= $row['image_url']; ?>" alt="Profile Image">
-                        <?php endif; ?>
-                        <p><?= htmlspecialchars($row['friend_name']); ?></p>
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p>No profiles found.</p>
-            <?php endif; ?>
+    <!-- Display Profile Data -->
+    <?php if ($show_profile && $profile_data): ?>
+        <div class="profile-data">
+            <h3>Profile Information</h3>
+            <p>Name: <?= htmlspecialchars($profile_data['name']); ?></p>
+            <p>Age: <?= htmlspecialchars($profile_data['age']); ?></p>
+            <p>Current Location: <?= htmlspecialchars($profile_data['current_location']); ?></p>
+            <p>Hometown: <?= htmlspecialchars($profile_data['hometown']); ?></p>
+            <h4>Education:</h4>
+            <ul>
+                <?php foreach ($profile_data['education'] as $school): ?>
+                    <li><?= htmlspecialchars($school); ?></li>
+                <?php endforeach; ?>
+            </ul>
         </div>
     <?php endif; ?>
 
@@ -89,13 +87,13 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
         <!-- Left Sidebar -->
         <div class="left-sidebar">
             <a href="?show=friends"><button class="friends-button">Friends</button></a><br>
-            <button class="friends-button">My Profile</button><br>
+            <a href="?show=profile"><button class="friends-button">My Profile</button></a> <br>
             <a href="?show=feeds"><button class="friends-button">Feeds</button></a>
         </div>
 
         <!-- Posts Section -->
-        <div class="posts-container">
-            <?php if ($show_feeds || !$show_friends): ?>
+        <?php if ($show_feeds): ?>
+            <div class="posts-container">
                 <?php
                 if ($result_posts->num_rows > 0) {
                     while ($row = $result_posts->fetch_assoc()) {
@@ -115,38 +113,28 @@ $show_feeds = isset($_GET['show']) && $_GET['show'] === 'feeds';
                     echo '<p>No posts found.</p>';
                 }
                 ?>
-            <?php endif; ?>
+            </div>
+        <?php endif; ?>
 
-            <?php if ($show_friends): ?>
+        <!-- Friends Section -->
+        <?php if ($show_friends): ?>
+            <div class="right-sidebar">
                 <?php
                 if ($result_friends->num_rows > 0) {
                     while ($row = $result_friends->fetch_assoc()) {
-                        echo '<div class="right-sidebar">';
                         echo '<div>';
                         if ($row['image_url']) {
                             echo '<img src="' . $row['image_url'] . '" alt="Friend Image">';
                         }
                         echo '<p>' . $row['friend_name'] . '</p>';
                         echo '</div>';
-                        echo '</div>';
                     }
                 } else {
                     echo '<p>No friends found.</p>';
                 }
                 ?>
-            <?php endif; ?>
-        </div>
-
-        <!-- Right Sidebar -->
-        <div class="right-sidebar">
-            <button class="friends-button">Friend requests</button>
-            <div>
-                <img src="./assets/images/1.jpeg" alt="">
-                <p>John Doe</p>
-                <button class="accept">Accept</button>
-                <button class="reject">Reject</button>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
 </body>
 
