@@ -69,6 +69,7 @@ $show_profile = isset($_GET['show']) && $_GET['show'] === 'profile';
     <?php if ($show_profile && $profile_data): ?>
         <div class="profile-data">
             <h3>Profile Information</h3>
+
             <p>Name: <?= htmlspecialchars($profile_data['name']); ?></p>
             <p>Age: <?= htmlspecialchars($profile_data['age']); ?></p>
             <p>Current Location: <?= htmlspecialchars($profile_data['current_location']); ?></p>
@@ -79,6 +80,7 @@ $show_profile = isset($_GET['show']) && $_GET['show'] === 'profile';
                     <li><?= htmlspecialchars($school); ?></li>
                 <?php endforeach; ?>
             </ul>
+            <img src="<?= htmlspecialchars($profile_data['img']); ?>" alt="Profile Image" class="profile-image">
         </div>
     <?php endif; ?>
 
